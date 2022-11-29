@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/CRUDS-With-React/static/css/main.3358e69d.css",
+    "main.js": "/CRUDS-With-React/static/js/main.5be2c558.js",
+    "index.html": "/CRUDS-With-React/index.html",
+    "main.3358e69d.css.map": "/CRUDS-With-React/static/css/main.3358e69d.css.map",
+    "main.5be2c558.js.map": "/CRUDS-With-React/static/js/main.5be2c558.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3358e69d.css",
+    "static/js/main.5be2c558.js"
+  ]
+}
