@@ -1,19 +1,19 @@
 // react bootstrap
 import { Container, Row, Col } from "react-bootstrap";
-
+//react router 
+import { Outlet } from "react-router-dom";
 // Import components
 import Header from "../components/Header";
 
-//react router 
-import { Outlet } from "react-router-dom";
-
+//=> component <=//
 const RootLayout = () => {
+  
   return (
     <Container>
-      <Header/>
+      <Header />
       <Row>
         <Col xs={{ span: 8, offset: 2 }}>
-          <Outlet />
+          <Outlet/>
         </Col>
       </Row>
     </Container>

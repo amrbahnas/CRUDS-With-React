@@ -1,14 +1,14 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { useRouteError,useNavigate } from "react-router-dom";
+import { useRouteError, useNavigate } from "react-router-dom";
 const NotFound = () => {
-   const error = useRouteError(); // for git router error type
-   console.error(error);
-   const navigate = useNavigate();
+  
+ const error = useRouteError();
+  const navigate = useNavigate();
 
-   // back on click
-   const goBack =()=>{
+  // back on click
+  const goBack = () => {
     navigate("/", { replace: true });
-   }
+  };
 
   return (
     <Container>
