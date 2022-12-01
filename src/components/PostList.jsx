@@ -1,15 +1,15 @@
 import React from "react";
-import Post from "./Post";
+import PostListItem from "./PostListItem";
 import { Table } from "react-bootstrap";
 
-const postList = ({ data, loading, error }) => {
+const postList = ({ data, loading, error, deleteItem }) => {
   return (
     <div>
       {loading ? (
         <p className="text-center">Loading</p>
       ) : error ? (
         <p className="text-center">Field</p>
-      ) : (
+      ) : data.length ? (
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -19,9 +19,16 @@ const postList = ({ data, loading, error }) => {
             </tr>
           </thead>
           <tbody>
-            <Post data={data} loading={loading} error={error} />
+            <PostListItem
+              data={data}
+              loading={loading}
+              error={error}
+              deleteItem={deleteItem}
+            />
           </tbody>
         </Table>
+      ) : (
+        <p className="text-center">No Items</p>
       )}
     </div>
   );

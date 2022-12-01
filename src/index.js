@@ -10,8 +10,8 @@ import { Provider } from "react-redux";
 //react router
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/RootLayout";
-import Add from "./pages/Add";
-import Posts from "./pages/Posts";
+import AddPost from "./pages/AddPost";
+import Index from "./pages/Index";
 import Details from "./pages/Details";
 import Edit from "./pages/Edit";
 import Delete from "./pages/Delete";
@@ -25,11 +25,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Posts />,
+        element: <Index />,
       },
       {
         path: "post/add",
-        element: <Add />,
+        element: <AddPost />,
       },
       {
         path: "post/:id",
