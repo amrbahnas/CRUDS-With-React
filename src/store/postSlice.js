@@ -20,12 +20,14 @@ export const fetchposts = createAsyncThunk(
 
 // insert post
 export const insertPost = createAsyncThunk("posts/insertPost",async(item,thunkAPI)=>{
-  const { rejectWithValue } = thunkAPI;
+  const { rejectWithValue,getState } = thunkAPI;
+  //  const {auth} = getState()
+  //  item.userId = auth.id;
   try {
     const res = await fetch("http://localhost:3005/posts",{
       method: "POST",
-    body: JSON.stringify(item),
-    headers:{
+      body: JSON.stringify(item),
+      headers:{
       "content-type": "application/json; charset=UTF-8"
     }
     })
@@ -34,6 +36,31 @@ export const insertPost = createAsyncThunk("posts/insertPost",async(item,thunkAP
     return rejectWithValue(error.message);
   }
 })
+
+
+// update post 
+export const updatePost = createAsyncThunk(
+  "posts/updatePost",
+  async (data, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    const {id,title,description} = data;
+    try {
+      const res = await fetch(`http://localhost:3005/posts/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          description,
+        }),
+      });
+      return await res.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 // delete post
 export const deletePost = createAsyncThunk(
@@ -55,16 +82,27 @@ const initialState = {
   records: [],
   loading: false,
   error: null,
+  edit:false,
+  editpost:{},
 };
 
 const postSlice = createSlice({
   name: "posts",
   initialState,
+  reducers: {
+    editToggle: (state) => {
+      state.edit = !state.edit;
+    },
+    editItem: (state, action) => {
+      state.editpost = action.payload;
+    },
+   
+  },
   extraReducers: {
     //get posts
     [fetchposts.pending]: (state) => {
       state.loading = true;
-      state.error =null;
+      state.error = null;
     },
     [fetchposts.fulfilled]: (state, action) => {
       state.loading = false;
@@ -84,21 +122,36 @@ const postSlice = createSlice({
     },
     [insertPost.fulfilled]: (state, action) => {
       state.loading = true;
-      state.records.push(action.payload)
+      state.records.push(action.payload);
     },
-    [insertPost.rejected]: (state, action) =>{
+    [insertPost.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
 
+    // update posts
+    [updatePost.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [updatePost.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.records = state.records.map((el) =>
+        el.id === action.payload.id ? action.payload : el
+      );
+    },
+    [updatePost.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     // delete posts
     [deletePost.pending]: (state) => {
       state.loading = true;
       state.error = null;
-
     },
     [deletePost.fulfilled]: (state, action) => {
       state.loading = false;
+      console.log("delete")
       state.records = state.records.filter(
         (record) => record.id !== action.payload
       );
@@ -111,3 +164,4 @@ const postSlice = createSlice({
 });
 
 export default postSlice.reducer;
+export const { editToggle, editItem } = postSlice.actions;

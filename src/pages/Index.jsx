@@ -7,7 +7,7 @@ import { fetchposts, deletePost } from "../store/postSlice";
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { records, loading, error } = useSelector((state) => state.postSlice);
+  const { records, loading, error } = useSelector((state) => state.posts);
 
   // deletePost
   const deleteItem = useCallback((id)=>{

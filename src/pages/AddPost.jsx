@@ -9,7 +9,6 @@ const AddPost = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // posts length
-  let index = useSelector((state) => state.postSlice.records.length);
   //input values
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,14 +16,19 @@ const AddPost = () => {
   // send post to server
   const insert = (e) => {
     e.preventDefault();
+    console.log("sad")
     dispatch(
       insertPost({
-        id: index,
+        id: Math.floor(Math.random() * 1000),
         title,
         description,
       })
-    );
-    navigate("/", { replace: true });
+    ).unwrap().then(() => {
+        navigate("/")
+      }).catch((erro) => {
+        navigate("/error")
+      });
+      // use unwrap when dispatch asyncThunk Action
   };
 
   return (
