@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
+const api = "https://638fac8b4bfe20f70ad77025.mockapi.io/CRUDS/React/posts";
+
 
 // get posts
 export const fetchposts = createAsyncThunk(
@@ -8,7 +10,7 @@ export const fetchposts = createAsyncThunk(
   async (_, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const res = await fetch("http://localhost:3005/posts");
+      const res = await fetch(api);
       const data = await res.json();
       return data;
     } catch (error) {
@@ -24,13 +26,13 @@ export const insertPost = createAsyncThunk("posts/insertPost",async(item,thunkAP
   //  const {auth} = getState()
   //  item.userId = auth.id;
   try {
-    const res = await fetch("http://localhost:3005/posts",{
+    const res = await fetch(api, {
       method: "POST",
       body: JSON.stringify(item),
-      headers:{
-      "content-type": "application/json; charset=UTF-8"
-    }
-    })
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+      },
+    });
     return await res.json();
   } catch (error) {
     return rejectWithValue(error.message);
@@ -45,7 +47,7 @@ export const updatePost = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     const {id,title,description} = data;
     try {
-      const res = await fetch(`http://localhost:3005/posts/${id}`, {
+      const res = await fetch(`${api}/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +70,7 @@ export const deletePost = createAsyncThunk(
   async (id, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      await fetch(`http://localhost:3005/posts/${id}`, {
+      await fetch(`${api}/${id}`, {
         method: "DELETE",
       });
       return id;
