@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-const api = "https://638fac8b4bfe20f70ad77025.mockapi.io/CRUDS/React/posts";
+const api = "https://638fac8b4bfe20f70ad77025.mockapi.io/CRUDS/React/items";
 
 
 // get posts
