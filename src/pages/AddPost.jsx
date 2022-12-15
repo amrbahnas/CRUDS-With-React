@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import {insertPost} from "../store/postSlice";
+import { motion } from "framer-motion";
+
 
 const AddPost = () => {
   const dispatch = useDispatch();
@@ -32,27 +34,33 @@ const AddPost = () => {
   };
 
   return (
-    <Form onSubmit={(e) => insert(e)}>
-      <Form.Group className="mb-3">
-        <Form.Label>Tilte</Form.Label>
-        <Form.Control
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>description</Form.Label>
-        <Form.Control
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Add
-      </Button>
-    </Form>
+  <motion.div
+  initial = {{x: '-100vh'}}
+  animate = {{x:0}}
+  transition = {{type :"spring", stiffness :150}}
+  >
+      <Form onSubmit={(e) => insert(e)}>
+        <Form.Group className="mb-3">
+          <Form.Label>Tilte</Form.Label>
+          <Form.Control
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>description</Form.Label>
+          <Form.Control
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Add
+        </Button>
+      </Form>
+  </motion.div>
   );
 };
 

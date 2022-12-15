@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import { useSelector } from 'react-redux';
 import Edit from './Edit';
 
+
 //=> component <=//
 const RootLayout = () => {
   const {edit} = useSelector(state=>state.posts)
