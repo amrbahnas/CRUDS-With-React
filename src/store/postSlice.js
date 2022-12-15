@@ -48,7 +48,7 @@ export const updatePost = createAsyncThunk(
     const {id,title,description} = data;
     try {
       const res = await fetch(`${api}/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
